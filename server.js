@@ -11,6 +11,21 @@ const app = express();
 // Create http server
 const server = http.createServer(app);
 
+// Since we are working with json, we need to use the following
+var corsOptions = {
+  origin: ['*'], // Accept request from anywhere
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+// Since we are working with json, we need to use the following
+app.use(express.json());
+
+// Specify Routes
+app.use("/api", require("./routes/fetchMessagesRoute"));
+app.use("/api", require("./routes/sendMessageRoute"));
+
 // Check if API is running. To do this, display a basic http page in the browser
 app.get("/", (req, res) => {
   res.send(`<html><body><h1>Shopify API</h1></body></html>`);
