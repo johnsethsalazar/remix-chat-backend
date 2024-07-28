@@ -1,8 +1,8 @@
 const express = require("express");
-const sendMessageController = require("../controllers/fetchMessageController");
+const getMessageController = require("../controllers/fetchMessageController");
 
 const router = express.Router();
 
-router.get("/sendMessage", sendMessageController.fetchMessages);
+router.get("/getAllMessages", getMessageController.fetchMessages);
 
 module.exports = router
