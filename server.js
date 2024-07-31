@@ -13,14 +13,24 @@ const server = http.createServer(app);
 
 // Since we are working with json, we need to use the following
 var corsOptions = {
-  origin: ['*'], // Accept request from anywhere
+  origin: ['https://ohsolutionsdevstore1.myshopify.com', 'https://remix-chat-backend-3h7y.vercel.app'], // Accept request from anywhere
   credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
 };
 
 app.use(cors(corsOptions));
 
 // Since we are working with json, we need to use the following
 app.use(express.json());
+
+// Handle preflight requests
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.sendStatus(200);
+});
 
 // Specify Routes
 app.use("/api", require("./routes/fetchMessagesRoute"));
